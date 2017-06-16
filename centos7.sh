@@ -9,8 +9,8 @@ function updateYum(){
 		wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 		sudo rpm -Uvh epel-release-latest-7*.rpm
 	fi;
-	#sudo yum clean all
-	#sudo yum groupinstall "Development Tools"
+	sudo yum -y update
+	sudo yum groupinstall "Development tools"
 }
 
 function updateGit(){
