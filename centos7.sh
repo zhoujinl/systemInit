@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #NEED ROOT 
 
 #default EPEL 
@@ -7,7 +9,7 @@ function updateYum(){
 		wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
 		sudo rpm -Uvh epel-release-latest-7*.rpm
 	fi;
-	sudo yum clean all
+	#sudo yum clean all
 	#sudo yum groupinstall "Development Tools"
 }
 
@@ -51,7 +53,6 @@ function setProxy(){
 
 #Before
 cd /opt
-
 
 #First update yum repository
 updateYum

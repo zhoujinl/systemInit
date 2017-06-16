@@ -1,3 +1,5 @@
+#!/bin/bash
+
 #NEED ROOT 
 
 #default EPEL 
