@@ -1,6 +1,8 @@
 #!/bin/bash
 
 #NEED ROOT 
+#CONST
+MYSQL_PASSWD="zhoujl.123"
 
 #default EPEL 
 function updateYum(){
@@ -17,7 +19,8 @@ function updateGit(){
 	sudo yum update git
 }
 
-function installGitFromSrc()(
+#git version 2.0
+function installGitFromSrc(){
 
 	yum install -y curl-devel expat-devel gettext-devel openssl-devel zlib-devel
 	yum install -y gcc perl-ExtUtils-MakeMaker
@@ -32,17 +35,41 @@ function installGitFromSrc()(
 
     echo 'export PATH=$PATH:/usr/local/git/bin' >> /etc/bashrc
     source /etc/bashrc
-)
+}
 
 function installLrzsz(){
 	sudo yum install -y lrzsz
 }
 
 
-function configureGit(){
+function installMysql(){
+	cd /opt
+	wget http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
+	rpm -ivh mysql-community-release-el7-5.noarch.rpm  
+	sudo yum install -y mysql-server  
+}
 
+function instatllJDK(){
+	cd /opt
+	wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u131-b11/d54c1d3a095b4ff2b6607d096fa80163/jdk-8u131-linux-x64.rpm  
+	##删除原本的jdk
+	rpm -qa|grep ^java-1|xargs rpm -e 
+	rpm -ivh jdk-8u131-linux-x64.rpm
+}
+
+function installGolang(){
+	sudo yum install -y golang
+}
+
+function configureGit(){
 	git config --global user.name zhoujinl
 	git config --global user.email zhoujinl@126.com
+}
+
+#只能执行一次
+function startMysql(){
+	sudo service mysqld start
+	mysqladmin -u root password $MYSQL_PASSWD
 }
 
 #in office env
@@ -63,4 +90,7 @@ installLrzsz
 
 #Third  configure 
 configureGit
+
+#Fourth run process
+#startMysql
 
