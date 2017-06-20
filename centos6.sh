@@ -1,13 +1,20 @@
 #!/bin/bash
-
 #NEED ROOT 
-#CONST
+
+
+#CONSANT
 MYSQL_PASSWD="zhoujl.123"
 
-#default EPEL base
+#in office env
+function setProxy(){
+	export http_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
+	export https_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
+}
+
+#default EPEL 
 function updateYum(){
 	sudo yum install -y epel-release 
-	if [ ! $? eq 0 ] ;then 
+	if [ ! $? eq 0 ] ;  then 
 		wget https://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
 		sudo rpm -Uvh epel-release-6*.rpm
 	fi;
@@ -15,6 +22,7 @@ function updateYum(){
 	sudo yum groupinstall "Development tools"
 }
 
+##
 function updateGit(){
 	sudo yum update git
 }
@@ -72,14 +80,10 @@ function startMysql(){
 	mysqladmin -u root password $MYSQL_PASSWD
 }
 
-#in office env
-function setProxy(){
-	export http_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
-	export https_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
-}
 
 #Before
 cd /opt
+setProxy
 
 #First update yum repository
 updateYum
@@ -87,11 +91,13 @@ updateYum
 #Second install pupular package: git,lrzsz
 installGitFromSrc
 installLrzsz
+installMysql
+instatllJDK
+installGolang
 
 #Third  configure 
 configureGit
 
 #Fourth run process
-#startMysql
-
+startMysql
 
