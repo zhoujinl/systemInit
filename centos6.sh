@@ -7,8 +7,8 @@ MYSQL_PASSWD="zhoujl.123"
 
 #in office env
 function setProxy(){
-	export http_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
-	export https_proxy=http://guozhw:ffcs1234@192.168.13.19:7777
+	export http_proxy=http://****:****@192.168.13.19:7777
+	export https_proxy=http://****:****@192.168.13.19:7777
 }
 
 #default EPEL 
